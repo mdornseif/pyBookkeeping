@@ -111,6 +111,7 @@ def add_orderline(root, description, qty, price, account_code):
     ET.SubElement(lineitem, 'Quantity').text = str(qty)
     ET.SubElement(lineitem, 'UnitAmount').text = str(price)
     ET.SubElement(lineitem, 'AccountCode').text = account_code
+    ET.SubElement(lineitem, 'TaxType').text = 'OUTPUT'
 
 
 def _convert_to_date(data):
@@ -153,7 +154,7 @@ def store_invoice(invoice, tax_included=False, draft=False, xero_should_generate
 
     lineitems = ET.SubElement(invoice_element, 'LineItems')
     if invoice.infotext_kunde:
-        add_orderline(lineitems, invoice.infotext_kunde, 0, 0, '')
+        add_orderline(lineitems, invoice.infotext_kunde, 0, 0, '8404')
     for item in invoice.orderlines:
         item = make_struct(item) # XXX rekursives Verhalten mit in make_struct packen
     
